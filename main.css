@@ -1,0 +1,103 @@
+* {
+	box-sizing: border-box;
+	/*margin: 50px;*/
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	padding: 50px;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+.container {
+	max-width: 600px;
+	margin: 0 auto;
+	border: 1px solid grey;
+	padding: 30px;
+}
+
+.page {
+	margin: 50px;
+	text-align: center;
+	/*border: 2px solid grey;*/
+}
+
+.title-image {
+	display: block;
+	max-width: 350px;
+	max-height: 500px;
+	width: auto;
+	height: auto;
+}
+
+header.title {
+	/*margin-top: 100px;*/
+	border: 2px solid grey;
+	padding: 10px;
+}
+
+.subtitle {
+	border: 2px solid grey;
+	padding: 10px;
+	/*text-align: center;*/
+}
+
+.question-title {
+	margin: 0 auto;
+	display: block;
+}
+
+.question-form {
+	text-align: left;
+}
+
+.my-form {
+	/*border: 1px solid black;*/
+}
+
+button.answers {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.navigation {
+	margin: 0 auto;
+	text-align: center;
+	height: 75px
+	vertical-align: middle;
+	display: inline;
+	width: 100%;
+}
+
+.scoring {
+	width: 30%;
+	border: 1px solid black;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 10px;
+	margin: 15px;
+}
+
+.reset, .next-question {
+	width: 30%;
+	margin: 0 auto;
+	vertical-align: middle;
+}
+
+/*.nav-button {
+	width: 33%;
+	margin: 0;
+	vertical-align: middle;
+}*/
+
+.correct {
+	border: 3px solid green;
+	color: green;
+}
+
+.incorrect {
+	text-decoration: line-through red;
+}

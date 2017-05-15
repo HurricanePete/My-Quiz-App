@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> This is the Questions page </title>
+	<title> Raiders Questionnaires </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-
+<div class="container">
+	<header class="question-title">
+		<h2>Question 1</h2> 
+		<h3>When Indiana Jones first looks into the Well of the Souls, what does he say about the animals he sees on the floor?</h3>
+	</header>
+	<form class="my-form" action="#">
+			<!--<input type="radio" name="answers" value="dogs">"Dogs, why did it have to be dogs?"<br>
+			<input type="radio" name="answers" value="beavers">"Huh. I didn't know they had beavers in Egypt."<br>
+			<input class="correct" type="radio" name="answers" value="snakes">"Snakes. Why did it have to be snakes?"<br>
+			<input type="radio" name="answers" value="none">There were no animals in the Well of the Souls<br>-->
+			<button class="answers"><span>"Dogs! I friggin' love dogs!"</span></button>
+			<button class="answers"><span>"Huh. I didn't know they had beavers in Egypt."</span></button>
+			<button class="answers correct"><span>"Snakes. Why did it have to be snakes?"</span></button>
+			<button class="answers incorrect"><span>There were no animals in the Well of the Souls</span></button>
+	</form>	
+	<hr>
+	<div class="navigation">
+		<!--<form class="nav-button" action="index.html">-->
+			<button class="reset"><span>Start Over</span></button>
+		<!--</form>-->
+		<div class="scoring">
+			<span class="current place">Question 1 of 5</span><br><hr>
+			<span class="current score">0 of 5 Correct</span>
+		</div>
+		<!--<form class="nav-button">-->
+			<button class="next-question"><span>Next Question</span></button>
+		<!--</form>-->
+	</div>
+</div>
 </body>
 </html>
