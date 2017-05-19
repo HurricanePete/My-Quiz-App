@@ -100,4 +100,9 @@ button.answers {
 
 .incorrect {
 	text-decoration: line-through red;
+	color: red;
+}
+
+.hidden {
+	display: none;
 }
