@@ -165,7 +165,7 @@ function scoringRender (state, element) {
 
 function endGame (state, element) {
 	if (state.current > 5) {
-		element.html('<div class="nav-button">' + '<button href="" class="reset "><span>Start Over</span></button>' + '</div>');
+		element.html('<div class="nav-button">' + '<button href="https://hurricanepete.github.io/My-Quiz-App/" class="reset "><span>Start Over</span></button>' + '</div>');
 	};
 }
 
