@@ -1,7 +1,7 @@
 var state = {
 	current: 1,
 	score: 0,
-	screen: 'questions'
+	screen: 'questionScreen'
 }
 
 var questions = {
@@ -55,11 +55,11 @@ function current (state) {
 function reset (state) {
 	state.current = 1,
 	state.score = 0,
-	state.screen = 'questions'
+	state.screen = 'questionScreen'
 }
 
 function screen (state) {
-	state.screen = 'questions';
+	state.screen = 'questionScreen';
 }
 
 function otherScreen (state) {
@@ -68,9 +68,12 @@ function otherScreen (state) {
 
 function checkItem (state, questions, targetItem, element) {
 	for (i = 1; i < 6; i++) {
-		if (['question'+ i].correct === targetItem) {
+		if (questions.items['question'+i].correct === targetItem) {
 			correct(state);
-		//}
+		}
+	};
+	console.log(questions.items['question1']);
+}
 		//else if (question2.correct === targetItem) {
 		//	correct(state);
 		//}
@@ -82,9 +85,6 @@ function checkItem (state, questions, targetItem, element) {
 	//	}
 	//	else if (question5.correct === targetItem) {
 	//		correct(state);
-		};
-	};
-}
 
 function questionRender (state, questions, element) {
 	var questionItem = function() {
@@ -211,7 +211,7 @@ function incorrectStatusRender (stat, questions, target) {
 }
 
 function questionOrAnswer (state, questions, elementQ, elementA, elementS, elementE, target) {
-	if (state.screen === 'questions') {
+	if (state.screen === 'questionScreen') {
 		questionRender(state, questions, elementQ);
 		answerRender(state, questions, elementA);
 		scoringRender(state, elementS);
