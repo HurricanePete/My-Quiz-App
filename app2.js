@@ -67,24 +67,12 @@ function otherScreen (state) {
 }
 
 function checkItem (state, questions, targetItem, element) {
-	for (i = 1; i < 6; i++) {
-		if (questions.items['question'+i].correct === targetItem) {
+	for (i = 0; i < 5; i++) {
+		if (questions.items[i].correct === targetItem) {
 			correct(state);
 		}
 	};
-	console.log(questions.items['question1']);
 }
-		//else if (question2.correct === targetItem) {
-		//	correct(state);
-		//}
-		//else if (question3.correct === targetItem) {
-		//	correct(state);
-		//}
-		//else if (question4.correct === targetItem) {
-	//		correct(state);
-	//	}
-	//	else if (question5.correct === targetItem) {
-	//		correct(state);
 
 function questionRender (state, questions, element) {
 	var questionItem = function() {
