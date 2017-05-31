@@ -80,23 +80,8 @@ function questionRender (state, questions, element) {
 			if (state.current === i) {
 			return '<h2>Question ' + i + '</h2>' + '<h3>' + questions.items[i].question + '</h3>';
 		}
-		//else if (state.current === 2) {
-		//	return '<h2>Question 2</h2>' + '<h3>' + question2.question + '</h3>';
-		//}
-		//else if (state.current === 3) {
-		//	return '<h2>Question 3</h2>' + '<h3>' + question3.question + '</h3>';
-		//}
-		//else if (state.current === 4) {
-		//	return '<h2>Question 4</h2>' + '<h3>' + question4.question + '</h3>';
-		//}
-		//else if (state.current === 5) {
-		//	return '<h2>Question 5</h2>' + '<h3>' + question5.question + '</h3>';
-		//}
-		//else if (state.current === 6) {
-		//	return '<h2>' + '</h2>' + '<h3>' + '</h3>';
-		//}
 	}
-	};
+}
 	element.html(questionItem);
 }
 
