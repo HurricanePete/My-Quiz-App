@@ -76,12 +76,15 @@ function checkItem (state, questions, targetItem, element) {
 
 function questionRender (state, questions, element) {
 	var questionItem = function() {
-		for (i = 1; i < 7; i++) {
+		for (i = 1; i < 6; i++) {
 			if (state.current === i) {
-			return '<h2>Question ' + i + '</h2>' + '<h3>' + questions.items[i].question + '</h3>';
+				return '<h2>Question ' + i + '</h2>' + '<h3>' + questions.items[i-1].question + '</h3>';
+			};
+		}
+		if (state.current === 6) {
+			return '<h2>' + '</h2>' + '<h3>' + '</h3>';
 		}
 	}
-}
 	element.html(questionItem);
 }
 
