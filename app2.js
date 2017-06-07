@@ -89,6 +89,7 @@ function questionRender (state, questions, element) {
 }
 
 function answerRender (state, questions, element) {
+	var wrongAnswerTemplate = ''
 	var answerItem = function () {
 		if (state.current === 1) {
 			return '<button class="answers wrong">' + '<span>' + question1.answerOne + '</span>' + '</button>' +
@@ -120,21 +121,6 @@ function answerRender (state, questions, element) {
 				'<button class="answers wrong">' + '<span>' + question5.answerThree + '</span>' + '</button>' +
 				'<button class="answers rightAnswer">' + '<span>' + question5.correct + '</span>' + '</button>';
 		}
-		//else if (state.current === 6 && state.score === 5) {
-		//	return '<span><h2 class="page">You\'ve made Dr. Jones proud, your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="proud.jpg">' + '</div>'; 
-		//}
-		//else if (state.current === 6 && state.score >= 3) {
-		//	return '<span><h2 class="page">Well done. You are a budding cinephile and your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="well.jpg">' + '</div>'; 
-		//}
-		//else if (state.current === 6 && state.score > 1) {
-		//	return '<span><h2 class="page">It was close, but you survived. Your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="boulder.jpg">' + '</div>'; 
-		//}
-		//else if (state.current === 6 && state.score < 1) {
-		//	return '<span><h2 class="page">Catastrophe! Your score is ' + state.score + ' out of 5. Give it another try!</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="low-score.jpg">' + '</div>'; 
-		//}
-		//else if (state.current === 6 && state.score === 0) {
-		//	return '<span><h2 class="page">Catastrophe! Your score is ' + state.score + ' out of 5. Give it another try!</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="low-score.jpg">' + '</div>'; 
-		//}
 	};
 	element.html(answerItem);
 }
@@ -174,8 +160,7 @@ function endGame (state, element, elementB) {
 
 function startGame (state, element) {
 	if (state.current === 1) {
-		element.html('<button class="reset"><span>Start Over</span></button>' + '<div class="scoring">' + '<span class="current place">Question 1 of 5</span>' + '<br>' + '<hr>' +
-			'<span class="current score">0 of 5 Correct</span>' + '</div>' + '<button class="next-question"><span>Next Question</span></button>');
+		element.html('<button class="reset"><span>Start Over</span></button><div class="scoring"><span class="current place">Question 1 of 5</span><br><hr><span class="current score">0 of 5 Correct</span></div><button class="next-question"><span>Next Question</span></button>');
 	}
 }
 
@@ -188,26 +173,11 @@ function correctStatusRender (state, questions, target) {
 function incorrectStatusRender (stat, questions, target) {
 	target.closest('body').find('.pop-up').toggleClass("hidden");
 	target.closest('body').find('.my-form').toggleClass("hidden");
-	if (state.current === 1) {
-	target.closest('body').find('.pop-up').html(
-		'<span class="status">' + 'Incorrect! The correct answer is ' + question1.correct + '</span>');
+	for (i = 1;i < 6;i++) {
+		if (state.current === i) {
+		target.closest('body').find('.pop-up').html('<span class="status">Incorrect! The correct answer is ' + questions.items[i-1].correct + '</span>');
 	}
-	else if (state.current === 2) {
-	target.closest('body').find('.pop-up').html(
-		'<span class="status">' + 'Incorrect! The correct answer is ' + question2.correct + '</span>');
-	}
-	else if (state.current === 3) {
-	target.closest('body').find('.pop-up').html(
-		'<span class="status">' + 'Incorrect! The correct answer is ' + question3.correct + '</span>');
-	}
-	else if (state.current === 4) {
-	target.closest('body').find('.pop-up').html(
-		'<span class="status">' + 'Incorrect! The correct answer is ' + question4.correct + '</span>');
-	}
-	else if (state.current === 5) {
-	target.closest('body').find('.pop-up').html(
-		'<span class="status">' + 'Incorrect! The correct answer is ' + question5.correct + '</span>');
-	}
+}
 }
 
 function questionOrAnswer (state, questions, elementQ, elementA, elementS, elementE, elementB, target) {
