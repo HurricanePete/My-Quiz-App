@@ -88,7 +88,7 @@ function questionRender (state, questions, element) {
 	element.html(questionItem);
 }
 
-function answerRender (state, questions, element, element2) {
+function answerRender (state, questions, element) {
 	var answerItem = function () {
 		if (state.current === 1) {
 			return '<button class="answers wrong">' + '<span>' + question1.answerOne + '</span>' + '</button>' +
@@ -120,23 +120,44 @@ function answerRender (state, questions, element, element2) {
 				'<button class="answers wrong">' + '<span>' + question5.answerThree + '</span>' + '</button>' +
 				'<button class="answers rightAnswer">' + '<span>' + question5.correct + '</span>' + '</button>';
 		}
-		else if (state.current === 6 && state.score === 5) {
-			return '<span><h2 class="page">You\'ve made Dr. Jones proud, your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="proud.jpg">' + '</div>'; 
-		}
-		else if (state.current === 6 && state.score >= 3) {
-			return '<span><h2 class="page">Well done. You are a budding cinephile and your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="well.jpg">' + '</div>'; 
-		}
-		else if (state.current === 6 && state.score > 1) {
-			return '<span><h2 class="page">It was close, but you survived. Your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="boulder.jpg">' + '</div>'; 
-		}
-		else if (state.current === 6 && state.score < 1) {
-			return '<span><h2 class="page">Catastrophe! Your score is ' + state.score + ' out of 5. Give it another try!</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="low-score.jpg">' + '</div>'; 
-		}
-		else if (state.current === 6 && state.score === 0) {
-			return '<span><h2 class="page">Catastrophe! Your score is ' + state.score + ' out of 5. Give it another try!</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="low-score.jpg">' + '</div>'; 
-		}
+		//else if (state.current === 6 && state.score === 5) {
+		//	return '<span><h2 class="page">You\'ve made Dr. Jones proud, your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="proud.jpg">' + '</div>'; 
+		//}
+		//else if (state.current === 6 && state.score >= 3) {
+		//	return '<span><h2 class="page">Well done. You are a budding cinephile and your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="well.jpg">' + '</div>'; 
+		//}
+		//else if (state.current === 6 && state.score > 1) {
+		//	return '<span><h2 class="page">It was close, but you survived. Your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="boulder.jpg">' + '</div>'; 
+		//}
+		//else if (state.current === 6 && state.score < 1) {
+		//	return '<span><h2 class="page">Catastrophe! Your score is ' + state.score + ' out of 5. Give it another try!</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="low-score.jpg">' + '</div>'; 
+		//}
+		//else if (state.current === 6 && state.score === 0) {
+		//	return '<span><h2 class="page">Catastrophe! Your score is ' + state.score + ' out of 5. Give it another try!</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="low-score.jpg">' + '</div>'; 
+		//}
 	};
 	element.html(answerItem);
+}
+
+function scoreDisplay (state, elementB) {
+	var scoreItem = null;
+	switch (state.score) {
+		case 5:
+		scoreItem = '<span><h2 class="page">You\'ve made Dr. Jones proud, your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="proud.jpg">' + '</div>';
+			break;
+		case 4:
+		case 3:
+		scoreItem ='<span><h2 class="page">Well done. You are a budding cinephile and your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="well.jpg">' + '</div>';
+			break;
+		case 2:
+		case 1:
+		scoreItem = '<span><h2 class="page">It was close, but you survived. Your score is ' + state.score + ' out of 5</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="boulder.jpg">' + '</div>'; 
+			break;
+		case 0:
+		scoreItem = '<span><h2 class="page">Catastrophe! Your score is ' + state.score + ' out of 5. Give it another try!</h2></span><hr>' + '<div class="page">' + '<img class="page score-image" src="low-score.jpg">' + '</div>'; 
+			break;
+		}
+	elementB.html(scoreItem);	
 }
 
 function scoringRender (state, element) {
@@ -144,9 +165,10 @@ function scoringRender (state, element) {
 	'<span class="current score">' + state.score + ' of 5 Correct</span>');
 }
 
-function endGame (state, element) {
+function endGame (state, element, elementB) {
 	if (state.current > 5) {
 		element.html('<div class="nav-button">' + '<button class="reset"><span>Start Over</span></button>' + '</div>');
+		scoreDisplay(state, elementB);
 	}
 }
 
@@ -188,12 +210,12 @@ function incorrectStatusRender (stat, questions, target) {
 	}
 }
 
-function questionOrAnswer (state, questions, elementQ, elementA, elementS, elementE, target) {
+function questionOrAnswer (state, questions, elementQ, elementA, elementS, elementE, elementB, target) {
 	if (state.screen === 'questionScreen') {
 		questionRender(state, questions, elementQ);
 		answerRender(state, questions, elementA);
 		scoringRender(state, elementS);
-		endGame(state, elementE);
+		endGame(state, elementE, elementB);
 	} 
 	else if (state.screen === 'status') {
 		correctStatusRender(state, questions, target);
@@ -224,12 +246,12 @@ $(function() {
 		current(state);
 		screen(state);
 		revert($(this));
-		questionOrAnswer(state, questions, $('.question-title'), $('.my-form'), $('.scoring'), $('.navigation'), $(this));
+		questionOrAnswer(state, questions, $('.question-title'), $('.my-form'), $('.scoring'), $('.navigation'), $('.my-form'), $(this));
 	});
 	$('div.navigation').on('click', 'button.reset', function(event) {
 		event.preventDefault();
 		reset(state);
-		questionOrAnswer(state, questions, $('.question-title'), $('.my-form'), $('.scoring'), $('.navigation'), $(this));
+		questionOrAnswer(state, questions, $('.question-title'), $('.my-form'), $('.scoring'), $('.navigation'), $('.my-form'), $(this));
 		revert($(this));
 		startGame(state, $('.navigation'));
 	})
