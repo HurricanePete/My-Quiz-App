@@ -1,9 +1,3 @@
-var state = {
-	current: 1,
-	score: 0,
-	screen: 'questionScreen'
-}
-
 var questions = {
 	items: [
 	question1 = {
@@ -44,7 +38,18 @@ var questions = {
 	]
 }
 
-function correct (state) {
+var state = {
+	current: 1,
+	score: 0,
+	screen: 'questionScreen'
+}
+
+var currentSet = {
+	currentQuestions: [questions.items[0].answerOne, questions.items[0].answerTwo, questions.items[0].answerThree],
+	currentCorrect: [questions.items[0].correct],
+}
+
+function correctAnswer (state) {
 	(state.score)++;
 }
 
@@ -66,12 +71,18 @@ function otherScreen (state) {
 	state.screen = 'status';
 }
 
-function checkItem (state, questions, targetItem, element) {
-	for (i = 0; i < 5; i++) {
-		if (questions.items[i].correct === targetItem) {
-			correct(state);
-		}
-	};
+function currentUpdate (currentSet, state) {
+	if (state.current < 6) { 
+		var currentIndex = (state.current)-1;
+		currentSet.currentQuestions = [questions.items[currentIndex].answerOne, questions.items[currentIndex].answerTwo, questions.items[currentIndex].answerThree];
+		currentSet.currentCorrect = [questions.items[currentIndex].correct];
+	}
+}
+
+function combineCurrentArray (currentSet) {
+	var currentSetCombine = currentSet.currentQuestions;
+	currentSetCombine.splice(Math.floor(Math.random()*4), 0, currentSet.currentCorrect);
+	return currentSetCombine;
 }
 
 function questionRender (state, questions, element) {
@@ -88,42 +99,52 @@ function questionRender (state, questions, element) {
 	element.html(questionItem);
 }
 
-function answerRender (state, questions, element) {
-	var wrongAnswerTemplate = ''
-	var answerItem = function () {
-		if (state.current === 1) {
-			return '<button class="answers wrong">' + '<span>' + question1.answerOne + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question1.answerTwo + '</span>' + '</button>' +
-				'<button class="answers rightAnswer">' + '<span>' + question1.correct + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question1.answerThree + '</span>' + '</button>';
-		}
-		else if (state.current === 2) {
-			return '<button class="answers wrong">' + '<span>' + question2.answerOne + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question2.answerTwo + '</span>' + '</button>' +
-				'<button class="answers rightAnswer">' + '<span>' + question2.correct + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question2.answerThree + '</span>' + '</button>';
-		}
-		else if (state.current === 3) {
-			return '<button class="answers wrong">' + '<span>' + question3.answerOne + '</span>' + '</button>' +
-				'<button class="answers rightAnswer">' + '<span>' + question3.correct + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question3.answerTwo + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question3.answerThree + '</span>' + '</button>';
-		}
-		else if (state.current === 4) {
-			return '<button class="answers rightAnswer">' + '<span>' + question4.correct + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question4.answerOne + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question4.answerTwo + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question4.answerThree + '</span>' + '</button>';
-		}
-		else if (state.current === 5) {
-			return '<button class="answers wrong">' + '<span>' + question5.answerOne + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question5.answerTwo + '</span>' + '</button>' +
-				'<button class="answers wrong">' + '<span>' + question5.answerThree + '</span>' + '</button>' +
-				'<button class="answers rightAnswer">' + '<span>' + question5.correct + '</span>' + '</button>';
-		}
-	};
-	element.html(answerItem);
+function answerRender (currentSet, elementA) {
+	var combineElement = combineCurrentArray(currentSet).map(function(currentItem) {
+		return '<button class="answers"><span>' + currentItem + '</span></button>';
+	});
+	elementA.html(combineElement);
 }
+
+//function answerRender (state, questions, element) {
+//	var wrongAnswerTemplate = '<button class="answers wrong"><span>';
+//	var correctAnswerTemplate = '<button class="answers rightAnswer"><span>';
+//	var AnswerTemplateSuffix = '</span></button>';
+//	//try using .splice to shuffle the array --> then use a .forEach method to add the templates and return the html
+//	var answerItem = function () {
+//		if (state.current === 1) {
+//			return '<button class="answers wrong">' + '<span>' + question1.answerOne + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question1.answerTwo + '</span>' + '</button>' +
+//				'<button class="answers rightAnswer">' + '<span>' + question1.correct + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question1.answerThree + '</span>' + '</button>';
+//		}
+//		else if (state.current === 2) {
+//			return '<button class="answers wrong">' + '<span>' + question2.answerOne + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question2.answerTwo + '</span>' + '</button>' +
+//				'<button class="answers rightAnswer">' + '<span>' + question2.correct + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question2.answerThree + '</span>' + '</button>';
+//		}
+//		else if (state.current === 3) {
+//			return '<button class="answers wrong">' + '<span>' + question3.answerOne + '</span>' + '</button>' +
+//				'<button class="answers rightAnswer">' + '<span>' + question3.correct + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question3.answerTwo + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question3.answerThree + '</span>' + '</button>';
+//		}
+//		else if (state.current === 4) {
+//			return '<button class="answers rightAnswer">' + '<span>' + question4.correct + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question4.answerOne + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question4.answerTwo + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question4.answerThree + '</span>' + '</button>';
+//		}
+//		else if (state.current === 5) {
+//			return '<button class="answers wrong">' + '<span>' + question5.answerOne + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question5.answerTwo + '</span>' + '</button>' +
+//				'<button class="answers wrong">' + '<span>' + question5.answerThree + '</span>' + '</button>' +
+//				'<button class="answers rightAnswer">' + '<span>' + question5.correct + '</span>' + '</button>';
+//		}
+//	};
+//	element.html(answerItem);
+//}
 
 function scoreDisplay (state, elementB) {
 	var scoreItem = null;
@@ -147,8 +168,7 @@ function scoreDisplay (state, elementB) {
 }
 
 function scoringRender (state, element) {
-		element.html('<span class="current place">Question ' + state.current + ' of 5</span>' + '<br>' + '<hr>' +
-	'<span class="current score">' + state.score + ' of 5 Correct</span>');
+		element.html('<span class="current place">Question ' + state.current + ' of 5</span><br><hr><span class="current score">' + state.score + ' of 5 Correct</span>');
 }
 
 function endGame (state, element, elementB) {
@@ -170,7 +190,7 @@ function correctStatusRender (state, questions, target) {
 	target.closest('body').find('.pop-up').html('<span class="status">' + 'Correct!</span>');
 }
 
-function incorrectStatusRender (stat, questions, target) {
+function incorrectStatusRender (state, questions, target) {
 	target.closest('body').find('.pop-up').toggleClass("hidden");
 	target.closest('body').find('.my-form').toggleClass("hidden");
 	for (i = 1;i < 6;i++) {
@@ -180,15 +200,25 @@ function incorrectStatusRender (stat, questions, target) {
 }
 }
 
-function questionOrAnswer (state, questions, elementQ, elementA, elementS, elementE, elementB, target) {
+function questionOrAnswer (state, questions, elementQ, elementA, elementS, elementE, elementB, target, curentSet) {
 	if (state.screen === 'questionScreen') {
 		questionRender(state, questions, elementQ);
-		answerRender(state, questions, elementA);
+		answerRender(currentSet, elementA);
 		scoringRender(state, elementS);
 		endGame(state, elementE, elementB);
 	} 
 	else if (state.screen === 'status') {
 		correctStatusRender(state, questions, target);
+	}
+}
+
+function checkItem (state, currentSet, targetItem, target) {
+	if (currentSet.currentCorrect == targetItem) {
+		correctAnswer(state);
+		correctStatusRender(state, questions, target);
+	}
+	else {
+		incorrectStatusRender(state, questions, target);
 	}
 }
 
@@ -198,29 +228,38 @@ function revert (target) {
 }
 
 $(function() {
-	$('form').on('click', 'button.rightAnswer', function(event) {
+	//$('form').on('click', 'button.rightAnswer', function(event) {
+	//	event.preventDefault();
+	//	$(this).toggleClass('clicked');
+	//	var quizItem = $(this).closest('form').find('.clicked');
+	//	otherScreen(state);
+	//	checkItem(state, currentSet, quizItem.text());
+	//	correctStatusRender(state, questions, $(this));
+	//});
+	//$('form').on('click', 'button.wrong', function(event) {
+	//	event.preventDefault();
+	//	otherScreen(state);
+	//	incorrectStatusRender(state, questions, $(this));
+	//});
+	$('form').on('click', 'button.answers', function(event) {
 		event.preventDefault();
 		$(this).toggleClass('clicked');
 		var quizItem = $(this).closest('form').find('.clicked');
 		otherScreen(state);
-		checkItem(state, questions, quizItem.text(), $('.rightAnswer'));
-		correctStatusRender(state, questions, $(this));
-	});
-	$('form').on('click', 'button.wrong', function(event) {
-		event.preventDefault();
-		otherScreen(state);
-		incorrectStatusRender(state, questions, $(this));
-	});
+		checkItem(state, currentSet, quizItem.text(), $(this));
+	})
 	$('div.navigation').on('click', 'button.next-question', function(event) {
 		event.preventDefault();
 		current(state);
 		screen(state);
+		currentUpdate(currentSet, state);
 		revert($(this));
-		questionOrAnswer(state, questions, $('.question-title'), $('.my-form'), $('.scoring'), $('.navigation'), $('.my-form'), $(this));
+		questionOrAnswer(state, questions, $('.question-title'), $('.my-form'), $('.scoring'), $('.navigation'), $('.my-form'), $(this), currentSet);
 	});
 	$('div.navigation').on('click', 'button.reset', function(event) {
 		event.preventDefault();
 		reset(state);
+		currentUpdate(currentSet, state);
 		questionOrAnswer(state, questions, $('.question-title'), $('.my-form'), $('.scoring'), $('.navigation'), $('.my-form'), $(this));
 		revert($(this));
 		startGame(state, $('.navigation'));

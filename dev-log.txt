@@ -1,0 +1,13 @@
+6/8/17
+--Changes--
+Altered state to store current set of questions as well as the correct answer as separate arrays
+
+--Next Steps--
+Combine the existing event listeners button.rightAnswer and button.wrong so as to compare the selected button to the state object 
+--> write a function that evaluates the selection as correct or incorrect
+--> this function should cascade into functions that update the state and render changes to the DOM
+
+Alter the button-next-question event listener so that it will initiate a new function 
+--> this function should update the state.currentSet and state.currentCorrect depending on state.current
+--> put this function within state?
+--> use the forEach method to add HTML to currentSet and currentCorrect before concatenating them for display
