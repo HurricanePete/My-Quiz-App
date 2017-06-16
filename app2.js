@@ -106,46 +106,6 @@ function answerRender (currentSet, elementA) {
 	elementA.html(combineElement);
 }
 
-//function answerRender (state, questions, element) {
-//	var wrongAnswerTemplate = '<button class="answers wrong"><span>';
-//	var correctAnswerTemplate = '<button class="answers rightAnswer"><span>';
-//	var AnswerTemplateSuffix = '</span></button>';
-//	//try using .splice to shuffle the array --> then use a .forEach method to add the templates and return the html
-//	var answerItem = function () {
-//		if (state.current === 1) {
-//			return '<button class="answers wrong">' + '<span>' + question1.answerOne + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question1.answerTwo + '</span>' + '</button>' +
-//				'<button class="answers rightAnswer">' + '<span>' + question1.correct + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question1.answerThree + '</span>' + '</button>';
-//		}
-//		else if (state.current === 2) {
-//			return '<button class="answers wrong">' + '<span>' + question2.answerOne + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question2.answerTwo + '</span>' + '</button>' +
-//				'<button class="answers rightAnswer">' + '<span>' + question2.correct + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question2.answerThree + '</span>' + '</button>';
-//		}
-//		else if (state.current === 3) {
-//			return '<button class="answers wrong">' + '<span>' + question3.answerOne + '</span>' + '</button>' +
-//				'<button class="answers rightAnswer">' + '<span>' + question3.correct + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question3.answerTwo + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question3.answerThree + '</span>' + '</button>';
-//		}
-//		else if (state.current === 4) {
-//			return '<button class="answers rightAnswer">' + '<span>' + question4.correct + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question4.answerOne + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question4.answerTwo + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question4.answerThree + '</span>' + '</button>';
-//		}
-//		else if (state.current === 5) {
-//			return '<button class="answers wrong">' + '<span>' + question5.answerOne + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question5.answerTwo + '</span>' + '</button>' +
-//				'<button class="answers wrong">' + '<span>' + question5.answerThree + '</span>' + '</button>' +
-//				'<button class="answers rightAnswer">' + '<span>' + question5.correct + '</span>' + '</button>';
-//		}
-//	};
-//	element.html(answerItem);
-//}
-
 function scoreDisplay (state, elementB) {
 	var scoreItem = null;
 	switch (state.score) {
@@ -228,19 +188,6 @@ function revert (target) {
 }
 
 $(function() {
-	//$('form').on('click', 'button.rightAnswer', function(event) {
-	//	event.preventDefault();
-	//	$(this).toggleClass('clicked');
-	//	var quizItem = $(this).closest('form').find('.clicked');
-	//	otherScreen(state);
-	//	checkItem(state, currentSet, quizItem.text());
-	//	correctStatusRender(state, questions, $(this));
-	//});
-	//$('form').on('click', 'button.wrong', function(event) {
-	//	event.preventDefault();
-	//	otherScreen(state);
-	//	incorrectStatusRender(state, questions, $(this));
-	//});
 	$('form').on('click', 'button.answers', function(event) {
 		event.preventDefault();
 		$(this).toggleClass('clicked');
